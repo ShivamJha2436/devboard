@@ -7,22 +7,22 @@ const navItems = [
   {
     name: "Dashboard",
     path: "/dashboard",
-    icon: "/icons/dashboard.svg",
+    icon: "/icons/dashboard/dashboard.svg",
   },
   {
     name: "Tasks",
     path: "/dashboard/tasks",
-    icon: "/icons/tasks.svg",
+    icon: "/icons/dashboard/tasks.svg",
   },
   {
     name: "Notes",
     path: "/dashboard/notes",
-    icon: "/icons/notes.svg",
+    icon: "/icons/dashboard/notes.svg",
   },
   {
     name: "Links",
     path: "/dashboard/links",
-    icon: "/icons/links.svg",
+    icon: "/icons/dashboard/link-alt.svg",
   },
 ];
 
