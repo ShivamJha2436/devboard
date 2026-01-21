@@ -19,7 +19,7 @@ export default function LoginPage() {
           </div>
 
           {/* Form */}
-          <form className="space-y-4">
+          <form className="space-y-4 text-gray-700">
             <Input
               label="Email"
               type="email"

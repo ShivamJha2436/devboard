@@ -122,7 +122,7 @@ export default function LandingPage() {
           How It Works
         </motion.h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-gray-500">
           {[
             {
               step: "1",
