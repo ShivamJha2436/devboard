@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useFetch } from "@/hooks/useFetch";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function TasksPage() {
   const { data: tasks, loading, refetch } = useFetch("/api/tasks");
@@ -17,6 +18,14 @@ export default function TasksPage() {
     });
 
     setTitle("");
+    refetch();
+  };
+
+  const toggleTask = async (id) => {
+    await fetch(`/api/tasks?id=${id}`, {
+      method: "PATCH",
+    });
+
     refetch();
   };
 
@@ -52,22 +61,45 @@ export default function TasksPage() {
       ) : tasks.length === 0 ? (
         <p className="text-gray-500">No tasks yet.</p>
       ) : (
-        <ul className="space-y-3">
-          {tasks.map((task) => (
-            <li
-              key={task.id}
-              className="flex justify-between items-center bg-white p-4 rounded-lg shadow-sm"
-            >
-              <span>{task.title}</span>
-              <button
-                onClick={() => deleteTask(task.id)}
-                className="text-sm text-red-500 hover:text-red-600"
+        <AnimatePresence>
+          <ul className="space-y-3">
+            {tasks.map((task) => (
+              <motion.li
+                key={task.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.3 }}
+                className="flex items-center justify-between bg-white p-4 rounded-lg shadow-sm"
               >
-                Delete
-              </button>
-            </li>
-          ))}
-        </ul>
+                <div className="flex items-center gap-3">
+                  <input
+                    type="checkbox"
+                    checked={task.completed}
+                    onChange={() => toggleTask(task.id)}
+                    className="w-4 h-4"
+                  />
+                  <span
+                    className={`${
+                      task.completed
+                        ? "line-through text-gray-400"
+                        : "text-gray-900"
+                    }`}
+                  >
+                    {task.title}
+                  </span>
+                </div>
+
+                <button
+                  onClick={() => deleteTask(task.id)}
+                  className="text-sm text-red-500 hover:text-red-600"
+                >
+                  Delete
+                </button>
+              </motion.li>
+            ))}
+          </ul>
+        </AnimatePresence>
       )}
     </div>
   );

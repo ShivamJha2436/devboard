@@ -19,6 +19,17 @@ export async function POST(req) {
   return Response.json(newTask, { status: 201 });
 }
 
+export async function PATCH(req) {
+  const { searchParams } = new URL(req.url);
+  const id = searchParams.get("id");
+
+  tasks = tasks.map((task) =>
+    task.id === id ? { ...task, completed: !task.completed } : task
+  );
+
+  return Response.json({ success: true });
+}
+
 export async function DELETE(req) {
   const { searchParams } = new URL(req.url);
   const id = searchParams.get("id");
